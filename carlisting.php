@@ -31,8 +31,9 @@
                +'<img src=\"images/'+val.Image+'\"class="float-left" width="260" height="200"> '
                +'<div class="float-left" style="padding-left:15px">'
                +'<h3>'+val.CarName+'</h3>'
-               +'<p style="padding-top:15px">'+val.SeatNo+'<span style="padding-left:35px">'+val.Model+'</span></p>'
-               +'<a href="" class="btn btn-primary" style="margin-top:18px;width:200px" role="button" >Details</a>'
+               +'<p style="padding-top:15px">'+'<i class="fa fa-user" style="font-size:17px;color:blue"></i>&nbsp;'+val.SeatNo+'<span style="padding-left:35px">'+'<i class="fa fa-calendar" style="font-size:17px;color:blue"></i>&nbsp;'+val.Model+'</span></p>'
+               +'<a href="details.php" class="btn btn-primary" style="margin-top:18px;width:150px" role="button" >View Details</a>'
+               +'<a href="order.php" class="btn btn-primary" style="margin-top:18px;width:150px;margin-left:30px;" role="button" >Order</a>'
                +'</div>'
                +'</div>'
                +'<br>'
@@ -46,7 +47,7 @@
      });        
   </script>
   <?php
-   include 'config.php';
+   include 'createconn.php';
    if ($conn->connect_error) {
      die("Connection failed: " . $conn->connect_error);
    }
@@ -61,7 +62,7 @@
  } 
  ?>
  <?php
-   include 'config.php';
+   include 'createconn.php';
    if ($conn->connect_error) {
      die("Connection failed: " . $conn->connect_error);
    }
@@ -75,6 +76,26 @@
    }
  } 
  ?>
+ <?php
+   include 'createconn.php';
+   if ($conn->connect_error) {
+     die("Connection failed: " . $conn->connect_error);
+   }
+   if(!empty($_POST["searchbrand"])){
+    $sql="SELECT * FROM carlist WHERE brand_id=".$_POST['searchbrand'].";";
+    $brandlist=array();
+    if($result=$conn->query($sql)){
+      while($row1=$result->fetch_array(MYSQLI_ASSOC)){
+         $brandlist[]=$row1;
+      }
+    }
+    
+  }
+ 
+ ?>
+ 
+ 
+
 </head>
 <body>
 <div class="text-center" style="margin-bottom:0">
@@ -99,7 +120,7 @@
          <div class="col-sm-4 pl-5">
             <div>
                 <p style="font-size:20px;" class="p-1"><i class="fa fa-car" style="color:#ff8000;font-size:25px"></i><span class="pl-2"><b>Find Your Car</b></span></p>
-                <select style="width:200px;" class="bg-light">
+                <select name="searchbrand" style="width:200px;" class="bg-light">
                  <option>Select Brand</option>
                  <?php
                 if(count($companyarr)>0){
@@ -110,6 +131,7 @@
 
         ?>
                 <select>
+                
                 <br><br>
                 <button style="width:200px" class="btn-warning"><i class="fa fa-search"></i>Search Car</button>
             </div>

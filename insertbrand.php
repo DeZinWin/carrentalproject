@@ -18,7 +18,7 @@
 </body>
 </html>
 <?php
-   include 'config.php';
+   include 'createconn.php';
    if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
    }  

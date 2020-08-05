@@ -11,7 +11,7 @@
 </head>
 <body>
 <?php
-include 'config.php';
+include 'createconn.php';
 echo 'Connection  Name'.$servername;
 function uploadFile($fileName){
     $target_dir = "images/";

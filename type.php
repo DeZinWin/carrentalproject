@@ -1,6 +1,6 @@
 <?php
 
-include 'config.php';
+include 'createconn.php';
 if(isset($_GET["cartype_id"])){
     $cartypeId=$_GET["cartype_id"];
     if ($conn->connect_error) {
