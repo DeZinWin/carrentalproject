@@ -44,6 +44,36 @@
             
         
             });
+
+            $("#searchbrand").change(function(){
+              if($("#searchbrand").val()!=""){
+                var brandId=this.value;
+            
+            $.get("branded.php?brand_id="+brandId, function(data, status){
+              var brandList=JSON.parse(data);  
+              $("#brandedcars").empty();
+            function show(){  
+            brandList.forEach(function(val,i){
+            $("#brandedcars").append(
+               '<div class="clearfix" style="background-color:whitesmoke;padding:10px 10px">' 
+               +'<img src=\"images/'+val.Image+'\"class="float-left" width="260" height="200"> '
+               +'<div class="float-left" style="padding-left:15px">'
+               +'<h3>'+val.CarName+'</h3>'
+               +'<p style="padding-top:15px">'+'<i class="fa fa-user" style="font-size:17px;color:blue"></i>&nbsp;'+val.SeatNo+'<span style="padding-left:35px">'+'<i class="fa fa-calendar" style="font-size:17px;color:blue"></i>&nbsp;'+val.Model+'</span></p>'
+               +'<a href="details.php" class="btn btn-primary" style="margin-top:18px;width:150px" role="button" >View Details</a>'
+               +'<a href="order.php" class="btn btn-primary" style="margin-top:18px;width:150px;margin-left:30px;" role="button" >Order</a>'
+               +'</div>'
+               +'</div>'
+               +'<br>'
+            );
+        });
+            }
+     });
+            }
+            
+
+            });  
+
      });        
   </script>
   <?php
@@ -77,7 +107,7 @@
  } 
  ?>
  <?php
-   include 'createconn.php';
+   /*include 'createconn.php';
    if ($conn->connect_error) {
      die("Connection failed: " . $conn->connect_error);
    }
@@ -85,12 +115,12 @@
     $sql="SELECT * FROM carlist WHERE brand_id=".$_POST['searchbrand'].";";
     $brandlist=array();
     if($result=$conn->query($sql)){
-      while($row1=$result->fetch_array(MYSQLI_ASSOC)){
-         $brandlist[]=$row1;
+      while($row=$result->fetch_array(MYSQLI_ASSOC)){
+         $brandlist[]=$row;
       }
     }
     
-  }
+  }*/
  
  ?>
  
@@ -120,20 +150,18 @@
          <div class="col-sm-4 pl-5">
             <div>
                 <p style="font-size:20px;" class="p-1"><i class="fa fa-car" style="color:#ff8000;font-size:25px"></i><span class="pl-2"><b>Find Your Car</b></span></p>
-                <select name="searchbrand" style="width:200px;" class="bg-light">
+                <select name="searchbrand" id="searchbrand" style="width:200px;" class="bg-light">
                  <option>Select Brand</option>
-                 <?php
-                if(count($companyarr)>0){
-                foreach($companyarr as $c){
-                   echo "<option value='".$c['id']."'>{$c['CompanyBrand']}</option>";
-            }
-        }
-
-        ?>
+                <?php
+                  if(count($companyarr)>0){
+                   foreach($companyarr as $c){
+                     echo "<option value='".$c['id']."'>{$c['CompanyBrand']}</option>";
+                   }
+                  }
+                ?>
                 <select>
-                
                 <br><br>
-                <button style="width:200px" class="btn-warning"><i class="fa fa-search"></i>Search Car</button>
+                <button style="width:200px" class="btn-warning" onclick="show()"><i class="fa fa-search"></i>Search Car</button>
             </div>
             <br><br>
             <div>
@@ -145,11 +173,10 @@
                 if(count($brandarr)>0){
                 foreach($brandarr as $a){
                    echo "<option value='".$a['id']."'>{$a['Categories']}</option>";
-            }
-        }
-
-        ?>
-    </select>
+                 }
+                }
+              ?>
+             </select>
                 
              
                <!--<button style="width:200px;background-color:#ff8000;">Cars for two peoples</button>
@@ -159,6 +186,9 @@
          <div class="col-sm-8">
           <div id="cars">
              
+          </div>
+          <div id="brandedcars">
+            
           </div>
          </div>
        </div>
