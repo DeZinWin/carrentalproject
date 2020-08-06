@@ -10,17 +10,17 @@ if($result=$conn->query($sql)){
     }
 }
 
-/*if(isset($_POST['order'])){
+if(isset($_POST['order'])){
     $name=$_POST['name'];
     $phone=$_POST['phone'];
-    $start=date_create($_POST['start']);
-    $end=date_create($_POST['end']);
-
-    echo $name.'<br>'.$phone.'<br>';
-    $diff=date_diff($start,$end);
-    echo $diff->format("%R%a days");
-
-}*/
+    $start=strtotime($_POST['start']);
+    $end=strtotime($_POST['end']);
+    $interval=$end-$start;
+    $days=floor($interval/(60*60*24));
+    $city=$_POST['location'];
+    
+   
+}
 
 ?>
 
@@ -41,7 +41,7 @@ if($result=$conn->query($sql)){
     <h2>Order</h2>
     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
         <div class="form-group">
-            <label for="name">Name:</label>
+            <label for="name">Full Name:</label>
             <input type="text" class="form-control" id="name" name="name" style="width: 350px; height: 50px;">
         </div>
         <div class="form-group">
@@ -64,7 +64,7 @@ if($result=$conn->query($sql)){
                 <?php
                 if(count($location)>0){
                     foreach($location as $l){
-                        echo "<option value='".$l['L_id']."'>{$l['city']}</option>";
+                        echo "<option value='".$l['price']."'>{$l['city']}</option>";
                     }
                 }else{
                     echo "no location";
