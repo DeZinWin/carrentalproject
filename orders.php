@@ -10,6 +10,18 @@ if($result=$conn->query($sql)){
     }
 }
 
+/*if(isset($_POST['order'])){
+    $name=$_POST['name'];
+    $phone=$_POST['phone'];
+    $start=date_create($_POST['start']);
+    $end=date_create($_POST['end']);
+
+    echo $name.'<br>'.$phone.'<br>';
+    $diff=date_diff($start,$end);
+    echo $diff->format("%R%a days");
+
+}*/
+
 ?>
 
 
