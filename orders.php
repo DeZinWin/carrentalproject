@@ -38,11 +38,11 @@ if($result=$conn->query($sql)){
         </div>
         <div class="form-group">
             <label for="sdate">Start Date:</label>
-            <input type="text" class="form-control" id="sdate" name="start" style="width: 350px; height: 50px;">
+            <input type="date" class="form-control" id="sdate" name="start" style="width: 350px; height: 50px;">
         </div>
         <div class="form-group">
             <label for="edate">End Date:</label>
-            <input type="text" class="form-control" id="edate" name="end" style="width: 350px; height: 50px;">
+            <input type="date" class="form-control" id="edate" name="end" style="width: 350px; height: 50px;">
         </div>
         <div class="form-group">
             <lable>Location:</lable>
