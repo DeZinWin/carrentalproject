@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "cardb";
+$dbname = "car_system";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);

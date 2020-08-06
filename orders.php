@@ -18,7 +18,7 @@ if(isset($_POST['order'])){
     $interval=$end-$start;
     $days=floor($interval/(60*60*24));
     $city=$_POST['location'];
-    
+
    
 }
 
@@ -36,28 +36,28 @@ if(isset($_POST['order'])){
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <title>Document</title>
 </head>
-<body>
+<body style="background-image:url('travel-car.jpg'); background-size: cover; background-repeat: no-repeat;">
     <div class="container">
     <h2>Order</h2>
     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
         <div class="form-group">
-            <label for="name">Full Name:</label>
+            <label for="name" class="text-danger" style="font-size: 20px;">Full Name:</label>
             <input type="text" class="form-control" id="name" name="name" style="width: 350px; height: 50px;">
         </div>
         <div class="form-group">
-            <label for="ph">Phone No:</label>
+            <label for="ph" class="text-danger" style="font-size: 20px;">Phone No:</label>
             <input type="text" class="form-control" id="ph" name="phone" style="width: 350px; height: 50px;">
         </div>
         <div class="form-group">
-            <label for="sdate">Start Date:</label>
+            <label for="sdate" class="text-danger" style="font-size: 20px;">Start Date:</label>
             <input type="date" class="form-control" id="sdate" name="start" style="width: 350px; height: 50px;">
         </div>
         <div class="form-group">
-            <label for="edate">End Date:</label>
+            <label for="edate" class="text-danger" style="font-size: 20px;">End Date:</label>
             <input type="date" class="form-control" id="edate" name="end" style="width: 350px; height: 50px;">
         </div>
         <div class="form-group">
-            <lable>Location:</lable>
+            <lable class="text-danger" style="font-size: 20px;">Location:</lable>
             <select id="locationId" class="form-control" name="location" style="width: 350px; height: 50px;">
                 <option>Select Location</option>
 
