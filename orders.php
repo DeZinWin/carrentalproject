@@ -15,10 +15,18 @@ if(isset($_POST['order'])){
     $phone=$_POST['phone'];
     $start=strtotime($_POST['start']);
     $end=strtotime($_POST['end']);
+    $starttoend=date("Y-m-d",$start)."to" .date("Y-m-d",$end);
+    echo $starttoend;
+    echo "<br>";
     $interval=$end-$start;
     $days=floor($interval/(60*60*24));
     $city=$_POST['location'];
+    $totalprice=$city*$days;
+
     
+    //$sql="INSERT INTO orders(FullName,PhoneNo,Location,Date,TotalPrice)
+          //VALUES($name,$phone,$city,$starttoend,$totalprice)"
+    echo $totalprice;
    
 }
 
