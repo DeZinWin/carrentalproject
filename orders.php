@@ -20,17 +20,20 @@ if(isset($_POST['order'])){
     echo "<br>";
     $interval=$end-$start;
     $days=floor($interval/(60*60*24));
-    $city=$_POST['location'];
-<<<<<<< HEAD
 
-=======
+    $city=$_POST['location'];
+
+
+
+    $locationid=$_POST['location'];
+
     $totalprice=$city*$days;
 
     
     //$sql="INSERT INTO orders(FullName,PhoneNo,Location,Date,TotalPrice)
           //VALUES($name,$phone,$city,$starttoend,$totalprice)"
     echo $totalprice;
->>>>>>> 6944ee19d89d3d5ce555c0ed94d7c49952acf0ec
+
    
 }
 
@@ -76,7 +79,7 @@ if(isset($_POST['order'])){
                 <?php
                 if(count($location)>0){
                     foreach($location as $l){
-                        echo "<option value='".$l['price']."'>{$l['city']}</option>";
+                        echo "<option value='".$l['L_id']."'>{$l['city']}</option>";
                     }
                 }else{
                     echo "no location";
