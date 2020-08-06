@@ -32,8 +32,8 @@
                +'<div class="float-left" style="padding-left:15px">'
                +'<h3>'+val.CarName+'</h3>'
                +'<p style="padding-top:15px">'+'<i class="fa fa-user" style="font-size:17px;color:blue"></i>&nbsp;'+val.SeatNo+'<span style="padding-left:35px">'+'<i class="fa fa-calendar" style="font-size:17px;color:blue"></i>&nbsp;'+val.Model+'</span></p>'
-               +'<a href="details.php" class="btn btn-primary" style="margin-top:18px;width:150px" role="button" >View Details</a>'
-               +'<a href="order.php" class="btn btn-primary" style="margin-top:18px;width:150px;margin-left:30px;" role="button" >Order</a>'
+               +'<a href="detail.php" class="btn btn-primary" style="margin-top:18px;width:150px" role="button" >View Details</a>'
+               +'<a href="orders.php" class="btn btn-primary" style="margin-top:18px;width:150px;margin-left:30px;" role="button" >Order</a>'
                +'</div>'
                +'</div>'
                +'<br>'
@@ -52,7 +52,7 @@
             $.get("branded.php?brand_id="+brandId, function(data, status){
               var brandList=JSON.parse(data);  
               $("#brandedcars").empty();
-            function show(){  
+             
             brandList.forEach(function(val,i){
             $("#brandedcars").append(
                '<div class="clearfix" style="background-color:whitesmoke;padding:10px 10px">' 
@@ -67,7 +67,7 @@
                +'<br>'
             );
         });
-            }
+            
      });
             }
             

@@ -20,15 +20,40 @@ if(isset($_POST['order'])){
     echo "<br>";
     $interval=$end-$start;
     $days=floor($interval/(60*60*24));
-    $locationid=$_POST['location'];
-    $totalprice=$city*$days;
+    //$locationid=$_POST['location'];
+    //$totalprice=$city*$days;
 
-    $sql="SELECT * FROM L"
-    //$sql="INSERT INTO orders(FullName,PhoneNo,Location,Date,TotalPrice)
-          //VALUES($name,$phone,$city,$starttoend,$totalprice)"
-    echo $totalprice;
-   
-}
+    $sql="SELECT * FROM Location WHERE L_id=".$_POST['location'].";";
+    $locationlist = array();
+      if ($result = $conn->query($sql)) {
+      
+          while($row = $result->fetch_array(MYSQLI_ASSOC)) {
+                $locationlist[] = $row;
+          }
+         // echo json_encode($locationlist);
+        }
+        foreach($locationlist as $list){
+           $city=$list['city'];
+           $price=$list['price'];
+        }
+        $totalprice=$price*$days;
+        
+        $sql="INSERT INTO orders(FullName,PhoneNo,Location,Date,TotalPrice)
+              VALUES('$name','$phone','$city','$starttoend',$totalprice)";
+        if($conn->query($sql)===TRUE)     {
+            echo "Insert successfully";
+        } else {
+          echo "Error creating table: " . $conn->error; 
+        }       
+        
+       //function function_alert($city,$day,$price){
+      //echo '<script>alert("Order Confirmed\nLocation:'{$city}'\nDays:'{$days}'\nYour Costs:'{$totalprice}''");</script>';
+        echo '<script>';
+        echo "alert(\"Order Confirmed\\nLocation:\\t$city\\nDays:\\t$days\\nYour Costs:\\t$totalprice\")";
+        echo "</script>";
+}   
+
+
 
 ?>
 
