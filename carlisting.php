@@ -24,6 +24,7 @@
             
             $.get("type.php?cartype_id="+cartypeId, function(data, status){
               var carList=JSON.parse(data);  
+            
               $("#cars").empty();
             carList.forEach(function(val,i){
             $("#cars").append(
@@ -33,7 +34,7 @@
                +'<h3>'+val.CarName+'</h3>'
                +'<p style="padding-top:15px">'+'<i class="fa fa-user" style="font-size:17px;color:blue"></i>&nbsp;'+val.SeatNo+'<span style="padding-left:35px">'+'<i class="fa fa-calendar" style="font-size:17px;color:blue"></i>&nbsp;'+val.Model+'</span></p>'
                +'<a href="detail.php" class="btn btn-primary" style="margin-top:18px;width:150px" role="button" >View Details</a>'
-               +'<a href="orders.php" class="btn btn-primary" style="margin-top:18px;width:150px;margin-left:30px;" role="button" >Order</a>'
+               +'<a href="orders.php?id='+val.id+ '"class="btn btn-primary" style="margin-top:18px;width:150px;margin-left:30px;" role="button" >Order</a>'
                +'</div>'
                +'</div>'
                +'<br>'
