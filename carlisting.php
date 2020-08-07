@@ -52,7 +52,7 @@
             $.get("branded.php?brand_id="+brandId, function(data, status){
               var brandList=JSON.parse(data);  
               $("#brandedcars").empty();
-            function show(){  
+             
             brandList.forEach(function(val,i){
             $("#brandedcars").append(
                '<div class="clearfix" style="background-color:whitesmoke;padding:10px 10px">' 
@@ -67,7 +67,7 @@
                +'<br>'
             );
         });
-            }
+            
      });
             }
             
