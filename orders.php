@@ -11,7 +11,6 @@ if($result=$conn->query($sql)){
 }
 $loc=array();
 if(isset($_GET["id"])){
-   
  
 $sqql="SELECT * FROM carlist WHERE id=".$_GET["id"].";";
         $loc=array();
@@ -21,8 +20,18 @@ $sqql="SELECT * FROM carlist WHERE id=".$_GET["id"].";";
           $loc[]=$row;
        }
       }
+      foreach($loc as $ctype){
+        $cartype_id=$ctype['cartype_id'];
+    
+    }
+    $sql="SELECT AdditionalCosts FROM cartype WHERE id=".$cartype_id.";";
+    $result=$conn->query($sql);
+    $row=$result->fetch_assoc();
+    
+    
 }
 
+//echo $addcost;
 if(isset($_POST['order'])){
     $name=$_POST['name'];
     $phone=$_POST['phone'];
@@ -33,13 +42,7 @@ if(isset($_POST['order'])){
     echo "<br>";
     $interval=$end-$start;
     $days=floor($interval/(60*60*24));
-    //$locationid=$_POST['location'];
-    //$totalprice=$city*$days;
-    // $carId=0;
-   /* if(isset($_GET["id"])){
-        $carId=$_GET["id"];
-        
-    }  */ 
+    
 
     $sql="SELECT * FROM Location WHERE L_id=".$_POST['location'].";";
     $locationlist = array();
@@ -55,9 +58,10 @@ if(isset($_POST['order'])){
            $price=$list['price'];
            $city=$list['city'];
         }
-        $totalprice=$price*$days;
+        $addcost=$_POST['additionalid'];
+        $totalprice=$price*$days+$addcost;
         $carId=$_POST["carid"];
-
+        
         /*$sqql="SELECT * FROM carlist WHERE id=$carId";
         $loc=array();
 
@@ -101,6 +105,7 @@ if(isset($_POST['order'])){
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <title>Document</title>
 </head>
+<?php include 'header.php';?>
 <body style="background-color:lavender">
 <div class="container">
 <div class="row">
@@ -109,6 +114,7 @@ if(isset($_POST['order'])){
     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
         <div class="form-group">
             <input type="hidden" id="carId" name="carid" value="<?php echo $_GET["id"]; ?>" />
+            <input type="hidden" id="Id" name="additionalid" value="<?php echo $row['AdditionalCosts']; ?>" />
             <label for="name" class="text-danger" style="font-size: 20px;">Full Name:</label>
             <input type="text" class="form-control" id="name" name="name" style="width: 350px; height: 50px;">
         </div>
@@ -155,4 +161,5 @@ if(isset($_POST['order'])){
 </div>
 </div>
 </body>
+<?php include 'footer.php';?>
 </html>

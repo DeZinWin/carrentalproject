@@ -10,9 +10,29 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </head>
 <body>
+
 <?php
 include 'createconn.php';
 echo 'Connection  Name'.$servername;
+
+$sql="SELECT * FROM cartype";
+$cartypeList=array();
+
+if($result=$conn->query($sql)){
+    while($row=$result->fetch_array(MYSQLI_ASSOC)){
+        $cartypeList[]=$row;
+    }
+}
+$sql="SELECT * FROM brand";
+$brandList=array();
+
+if($result=$conn->query($sql)){
+    while($row=$result->fetch_array(MYSQLI_ASSOC)){
+        $brandList[]=$row;
+    }
+}
+
+
 function uploadFile($fileName){
     $target_dir = "images/";
 $target_file = $target_dir . basename($_FILES[$fileName]["name"]);
@@ -106,11 +126,29 @@ $conn->close();
     </div>
     <div class="form-group">
       <label for="type">Car type:</label>
-      <input type="number" class="form-control" id="cartype"  name="cartype" />
+      <select class="form-control" id="cartype" name="cartype" style="width:350px;height=50px">
+      <option>Select Car Type</option>
+      <?php
+       if(count($cartypeList)>0){
+         foreach($cartypeList as $ct){
+           echo "<option value='".$ct['id']."'>{$ct['Categories']}</option>";
+         }
+       }
+      ?>
+      </select>
     </div>
     <div class="form-group">
       <label for="type">Brand Id:</label>
-      <input type="number" class="form-control" id="brand"  name="brand" />
+      <select class="form-control" id="brand" name="brand" style="width:350px;height=50px">
+      <option>Select Brand Name</option>
+      <?php
+       if(count($brandList)>0){
+         foreach($brandList as $bl){
+           echo "<option value='".$bl['id']."'>{$bl['CompanyBrand']}</option>";
+         }
+       }
+      ?>
+      </select>
     </div>
     <button type="submit" class="btn btn-primary">Save</button>
   </form>

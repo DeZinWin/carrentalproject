@@ -12,33 +12,20 @@
 </head>
 <body>
 <!--style="background-image: url('Transpo.jpg');background-repeat:no-repeat;margin-left:20px;background-size:cover;">-->
-
-<div class="container">
- 
-   <div class="text-center" style="margin-bottom:0">
-    <nav class="navbar navbar-expand-sm bg-dark">
-      <ul class="navbar-nav" style="padding-left:25px">
-         <li class="nav-item">
-           <a class="nav-link" href="about.php">HOME</a>
-        </li>
-        <li class="nav-item">
-           <a class="nav-link" href="">ABOUT AS</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="carlisting.php">CAR LISTING</a>
-        </li>
-      </ul>
-    </nav>
-  </div>
+<?php include 'header.php';?>
+<div class="container-fluid">
   
-  <div>
-     <div style="background-image: url('Transpo1.jpg');background-repeat:no-repeat;margin-left:0;background-size:cover;width:928px;height:750px">
-        <p style="padding:50px 5px 20px 90px ;font-size:30px;color:white">FIND THE RIGHT <br>CAR FOR YOU</p>
+  <div class="jumboton jumboton-fluid">
+     <div style="background-image: url('hd-wallpaper-car1.jpg');background-repeat:no-repeat;margin-left:0;background-size:cover;height:550px">
+        <div style="opacity:0.9;">
+        <p style="padding:30px  ;text-align:center;font-size:30px;color:white;">FIND THE RIGHT <br>CAR FOR YOU</p>
+        </div>
      </div>
      
   </div>
-  <div style="padding:5px;margin-bottom:0;text-align:center">THANKS YOU</div>
+  
 
 </div>
 </body>
+<?php include 'footer.php';?>
 </html>

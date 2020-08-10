@@ -43,7 +43,7 @@ if(!empty($_POST["L_id"])){
                 <?php
                 if(count($location)>0){
                     foreach($location as $l){
-                        echo "<option value='".$l['L_id']."'>{$l['city']}</option>";
+                        echo "<option value='".$l['L_id']."'>{$l['city']}({$l['price']})</option>";
                     }
                 }
 
