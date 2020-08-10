@@ -9,17 +9,7 @@ if($result=$conn->query($sql)){
         $location[]=$row;
     }
 }
-if(!empty($_POST["L_id"])){
-   
-    $sql= "SELECT price FROM Location WHERE L_id=".$_POST['L_id'].";";
-   //$price=array();
-    $result=$conn->query($sql);
-    $row=$result->fetch_assoc();   
-    
-}
-
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,36 +20,45 @@ if(!empty($_POST["L_id"])){
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <title>Document</title>
+    <style>
+        th, td{
+            width: 250px;
+            border: 1px solid;
+            padding: 5px;
+        }
+        tr:nth-child(even){background-color: #f2f2f2;}
+        th{
+            background-color: MediumSeaGreen;
+            color: white;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h2 class="text-primary">Choose Your Location</h2>
-        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-        <div class="form-group">
-            <lable>City:</lable>
-            <select id="locationId" name="location" style="width: 350px; height: 50px;">
-                <option>Select Location</option>
-
+        <h3 class="text-primary">You can view location and price</h3>
+        <table>
+            <thead>
+            <tr>
+                <th>Location</th>
+                <th>Price</th>
+            </tr>
+            </thead>
+            <tbody>
                 <?php
-                if(count($location)>0){
                     foreach($location as $l){
-                        echo "<option value='".$l['L_id']."'>{$l['city']}</option>";
+                        echo "<tr>";
+                        echo "<td>{$l['city']}</td><td>{$l['price']}</td>";
+                        echo "</tr>";
                     }
-                }
 
                 ?>
-            </select>
+            </tbody>
+        </table>
+    
+        <div>
+        <a href="carlisting.php" class="btn btn-info" style="margin-top:18px;width:100px;margin-left:30px;" role="button" >Close</a>
         </div>
-
-        <div class="form-group">
-            <label for="price">Price:</label>
-            <input type="text" class="form-control" id="price" value="<?php echo $row['price'];?>" name="price" style="width: 350px; height: 50px;">
-        </div>
-        <div class="form-group">
-            <button type="submit" name="order" class="btn btn-primary">Order</button>
-            
-        </div>
-        </form>
+        
     </div>
 </body>
 </html>

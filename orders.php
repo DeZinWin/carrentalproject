@@ -1,5 +1,5 @@
 <?php
-include "config.php";
+include "createconn.php";
 
 $sql="SELECT * FROM location";
 $location=array();
@@ -8,6 +8,19 @@ if($result=$conn->query($sql)){
     while($row=$result->fetch_array(MYSQLI_ASSOC)){
         $location[]=$row;
     }
+}
+$loc=array();
+if(isset($_GET["id"])){
+   
+ 
+$sqql="SELECT * FROM carlist WHERE id=".$_GET["id"].";";
+        $loc=array();
+
+      if($result=$conn->query($sqql)){
+          while($row=$result->fetch_array(MYSQLI_ASSOC)){
+          $loc[]=$row;
+       }
+      }
 }
 
 if(isset($_POST['order'])){
@@ -20,6 +33,13 @@ if(isset($_POST['order'])){
     echo "<br>";
     $interval=$end-$start;
     $days=floor($interval/(60*60*24));
+    //$locationid=$_POST['location'];
+    //$totalprice=$city*$days;
+    // $carId=0;
+   /* if(isset($_GET["id"])){
+        $carId=$_GET["id"];
+        
+    }  */ 
 
     $sql="SELECT * FROM Location WHERE L_id=".$_POST['location'].";";
     $locationlist = array();
@@ -31,13 +51,25 @@ if(isset($_POST['order'])){
          // echo json_encode($locationlist);
         }
         foreach($locationlist as $list){
-           $city=$list['city'];
+           $locationId=$list['L_id'];
            $price=$list['price'];
+           $city=$list['city'];
         }
         $totalprice=$price*$days;
-        
-        $sql="INSERT INTO orders(FullName,PhoneNo,Location,Date,TotalPrice)
-              VALUES('$name','$phone','$city','$starttoend',$totalprice)";
+        $carId=$_POST["carid"];
+
+        /*$sqql="SELECT * FROM carlist WHERE id=$carId";
+        $loc=array();
+
+      if($result=$conn->query($sqql)){
+          while($row=$result->fetch_array(MYSQLI_ASSOC)){
+          $loc[]=$row;
+       }
+      }*/
+      
+
+        $sql="INSERT INTO orders(FullName,PhoneNo,Date,TotalPrice,carlist_id,location_id)
+              VALUES('$name','$phone','$starttoend',$totalprice,$carId,$locationId)";
         if($conn->query($sql)===TRUE)     {
             echo "Insert successfully";
         } else {
@@ -53,6 +85,8 @@ if(isset($_POST['order'])){
 
 
 
+   
+
 ?>
 
 
@@ -67,11 +101,14 @@ if(isset($_POST['order'])){
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <title>Document</title>
 </head>
-<body style="background-image:url('travel-car.jpg'); background-size: cover; background-repeat: no-repeat;">
-    <div class="container">
+<body style="background-color:lavender">
+<div class="container">
+<div class="row">
+    <div class="col-sm-5">
     <h2>Order</h2>
     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
         <div class="form-group">
+            <input type="hidden" id="carId" name="carid" value="<?php echo $_GET["id"]; ?>" />
             <label for="name" class="text-danger" style="font-size: 20px;">Full Name:</label>
             <input type="text" class="form-control" id="name" name="name" style="width: 350px; height: 50px;">
         </div>
@@ -107,7 +144,15 @@ if(isset($_POST['order'])){
         <div class="form-group">
             <button type="submit" name="order" class="btn btn-primary">Order Confirm</button>
         </div>
+       
     </form>
     </div>
+    <div class="col-sm-7">
+      <?php foreach($loc as $c){ ?>
+      <p class="pt-5"> <img width='400' height='250' src="images/<?php echo $c['Image'];?>"></p>
+      <?php }?>
+    </div>
+</div>
+</div>
 </body>
 </html>
